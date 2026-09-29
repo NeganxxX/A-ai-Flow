@@ -1,0 +1,21 @@
+AÇAÍ FLOW — CREDENCIAIS DE TESTE
+================================
+
+LOGIN DO CLIENTE (login.php)
+E-mail: cliente@acaiflow.local
+Senha:  AcaiFlow@2026
+
+LOGIN ADMINISTRATIVO (admin/login.php)
+E-mail: admin@acaiflow.local
+Senha:  AF-Admin!9mQ2#Lx7V
+
+IMPORTANTE
+- A conta do cliente é criada automaticamente quando o arquivo banco/banco.sql é importado em uma instalação limpa.
+- Para um banco que já existe, execute banco/usuario_demo_login.sql no phpMyAdmin.
+- As credenciais acima são destinadas ao ambiente local/demonstração do projeto.
+
+CONTA DE TESTE — ÁREA DO CLIENTE
+E-mail: cliente@acaiflow.local
+Senha: AcaiFlow@2026
+
+A senha está armazenada como hash bcrypt no banco.

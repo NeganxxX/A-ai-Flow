@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="pt-BR" class="dark-mode">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#6B0F32">
+<meta name="description" content="Açaí Flow — Seu açaí. Seu flow.">
+<title>Início | Açaí Flow</title>
+<link rel="icon" href="/AcaiFlow1/img/logo/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Pacifico&display=swap" rel="stylesheet">
+<script>(function(){try{if(localStorage.getItem('acaiFlowTheme')==='dark'){document.documentElement.classList.add('dark-mode');}}catch(e){}})();</script>
+<link rel="stylesheet" href="/AcaiFlow1/css/style.css">
+<link rel="stylesheet" href="/AcaiFlow1/css/componentes.css">
+<link rel="stylesheet" href="/AcaiFlow1/css/responsivo.css">
+<link rel="stylesheet" href="/AcaiFlow1/css/tema.css">
+</head>
+<body>
+<div class="site-flashes">
+</div>
+<header class="site-header">
+    <div class="container header-shell">
+        <a class="brand" href="/AcaiFlow1/index.php">
+            <img src="/AcaiFlow1/img/logo/logo-real.png" alt="Açaí Flow">
+        </a>
+        <button class="menu-toggle" type="button" aria-label="Abrir menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+        <nav class="main-nav" aria-label="Navegação principal">
+            <a class="active" href="/AcaiFlow1/index.php">Início</a>
+            <a class="" href="/AcaiFlow1/cardapio.php">Cardápio</a>
+            <a class="" href="/AcaiFlow1/monte-seu-acai.php">Monte seu açaí</a>
+            <a class="" href="/AcaiFlow1/sobre.php">Sobre</a>
+            <a class="" href="/AcaiFlow1/contato.php">Contato</a>
+        </nav>
+        <div class="header-actions">
+            <a class="btn btn-coral btn-small desktop-only" href="/AcaiFlow1/cardapio.php">PEDIR AGORA <span>→</span></a>
+            <button class="theme-toggle" type="button" aria-label="Ativar modo noturno" aria-pressed="false" title="Ativar modo noturno">
+                <svg class="theme-icon theme-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 14.2A8.8 8.8 0 0 1 9.8 3.2a8.9 8.9 0 1 0 11 11Z"/></svg>
+                <svg class="theme-icon theme-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+            </button>
+            <a class="header-icon" href="/AcaiFlow1/login.php" aria-label="Área do cliente">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.2"></circle><path d="M5 20c.8-3.2 3.2-5 7-5s6.2 1.8 7 5"></path></svg>
+            </a>
+            <a class="cart-link" href="/AcaiFlow1/pedido.php" aria-label="Carrinho">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h2l1.3 9.1a2 2 0 0 0 2 1.7h6.9a2 2 0 0 0 1.9-1.5L19.7 8H7"></path><circle cx="10" cy="19" r="1.2"></circle><circle cx="17" cy="19" r="1.2"></circle></svg>
+                <span class="cart-count" id="cartCount">0</span>
+            </a>
+        </div>
+    </div>
+</header>
+<main>
+
+<section class="hero" aria-labelledby="hero-title">
+    <div class="hero-organic hero-organic-left" aria-hidden="true"></div>
+    <div class="hero-organic hero-organic-right" aria-hidden="true"></div>
+
+    <div class="container hero-grid">
+        <div class="hero-copy">
+            <div class="hero-location">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.1 7-12A7 7 0 0 0 5 9c0 5.9 7 12 7 12Z"/><circle cx="12" cy="9" r="2.2"/></svg>
+                <span>MANACAPURU - AM</span>
+            </div>
+
+            <h1 id="hero-title">Seu açaí.<br><span>Seu flow.</span></h1>
+
+            <p>
+                Monte sua combinação favorita e viva uma experiência única,
+                com todo o sabor da Amazônia.
+            </p>
+
+            <div class="hero-buttons">
+                <a class="btn btn-coral" href="/AcaiFlow1/monte-seu-acai.php">MONTE SEU AÇAÍ <span>→</span></a>
+                <a class="btn btn-outline" href="/AcaiFlow1/cardapio.php">VER CARDÁPIO</a>
+            </div>
+        </div>
+
+        <div class="hero-art" aria-label="Produto em destaque da Açaí Flow">
+            <div class="hero-circle hero-circle-one" aria-hidden="true"></div>
+            <div class="hero-circle hero-circle-two" aria-hidden="true"></div>
+            <img class="hero-product-img" src="/AcaiFlow1/img/banners/hero-produto-novo.png" alt="Copo de açaí Açaí Flow com frutas e acompanhamentos">
+        </div>
+    </div>
+</section>
+
+<section class="benefits reveal" data-reveal aria-label="Benefícios da Açaí Flow">
+    <div class="container benefits-grid">
+        <article class="benefit reveal reveal-delay-1" data-reveal>
+            <div class="benefit-icon" aria-hidden="true">
+                <svg viewBox="0 0 48 48"><path d="M8 23h32l-3 15H11L8 23Z"/><path d="M9 23c2-7 7-10 15-10s13 3 15 10"/><path d="M17 9c4 0 7 2 8 6-5 1-9-1-10-6h2Z"/></svg>
+            </div>
+            <h3>Sabor</h3>
+            <p>Frutas e ingredientes selecionados</p>
+        </article>
+
+        <article class="benefit reveal reveal-delay-1" data-reveal>
+            <div class="benefit-icon" aria-hidden="true">
+                <svg viewBox="0 0 48 48"><path d="M27 5 14 26h10l-3 17 13-23H24l3-15Z"/></svg>
+            </div>
+            <h3>Rapidez</h3>
+            <p>Seu açaí do seu jeito, sem demora</p>
+        </article>
+
+        <article class="benefit reveal reveal-delay-1" data-reveal>
+            <div class="benefit-icon" aria-hidden="true">
+                <svg viewBox="0 0 48 48"><path d="M16 37c10-11 10-21 11-28"/><path d="M27 14c5-3 10-1 14 2-4 5-9 7-14 4"/><path d="M17 28c-5-1-8-4-9-9 6-1 10 2 11 7"/></svg>
+            </div>
+            <h3>Qualidade</h3>
+            <p>Você sente a diferença em cada colherada</p>
+        </article>
+
+        <article class="benefit reveal reveal-delay-1" data-reveal>
+            <div class="benefit-icon" aria-hidden="true">
+                <svg viewBox="0 0 48 48"><path d="M24 39S10 30.5 10 19a7 7 0 0 1 14-1 7 7 0 0 1 14 1c0 11.5-14 20-14 20Z"/></svg>
+            </div>
+            <h3>Personalização</h3>
+            <p>Monte do seu jeito, combinações infinitas</p>
+        </article>
+    </div>
+</section>
+
+<section class="section menu-preview reveal" data-reveal aria-labelledby="menu-preview-title">
+    <div class="section-decor-leaf left" aria-hidden="true"></div>
+    <div class="section-decor-leaf right" aria-hidden="true"></div>
+
+    <div class="container menu-preview-grid">
+        <div class="menu-intro">
+            <span class="eyebrow">AÇAÍ EXPRESSO</span>
+            <h2 id="menu-preview-title" class="display-script">Nosso <span>Cardápio.</span></h2>
+            <p>Açaí em diferentes tamanhos e formatos, sempre com muito sabor e qualidade.</p>
+            <a class="btn btn-coral" href="/AcaiFlow1/cardapio.php">VER CARDÁPIO <span>→</span></a>
+        </div>
+
+        <div class="preview-cards">
+            <article class="product-card category-card reveal reveal-delay-2" data-reveal>
+                <div class="product-thumb category-thumb">
+                    <img src="/AcaiFlow1/img/categorias/copos.svg" alt="Copos de açaí" loading="lazy">
+                </div>
+                <h3>Copos</h3>
+                <p>A partir de R$ 5,00</p>
+                <div class="card-actions">
+                    <a class="btn btn-bordo" href="/AcaiFlow1/cardapio.php">VER OPÇÕES <span>→</span></a>
+                </div>
+            </article>
+
+            <article class="product-card category-card reveal reveal-delay-2" data-reveal>
+                <div class="product-thumb category-thumb">
+                    <img src="/AcaiFlow1/img/categorias/barcas.svg" alt="Barcas de açaí" loading="lazy">
+                </div>
+                <h3>Barcas</h3>
+                <p>A partir de R$ 15,00</p>
+                <div class="card-actions">
+                    <a class="btn btn-bordo" href="/AcaiFlow1/cardapio.php">VER OPÇÕES <span>→</span></a>
+                </div>
+            </article>
+
+        </div>
+    </div>
+</section>
+
+<section class="section customize-strip reveal" data-reveal aria-labelledby="customize-title">
+    <div class="container customize-layout">
+        <div class="customize-art">
+            <img src="/AcaiFlow1/img/customizador.svg" alt="Açaí personalizado">
+        </div>
+
+        <div class="customize-content">
+            <span class="eyebrow">MONTE DO SEU JEITO</span>
+            <h2 id="customize-title" class="display-script">Monte do <span>seu jeito.</span></h2>
+            <p>Escolha seus ingredientes favoritos e crie a combinação perfeita para você.</p>
+
+            <div class="option-groups">
+                <div class="option-group">
+                    <h4>Frutas</h4>
+                    <ul>
+                        <li>Morango</li>
+                        <li>Banana</li>
+                        <li>Kiwi</li>
+                        <li>Uva</li>
+                    </ul>
+                </div>
+                <div class="option-group">
+                    <h4>Cremes</h4>
+                    <ul>
+                        <li>Cupuaçu</li>
+                        <li>Maracujá</li>
+                        <li>Chocolate</li>
+                        <li>Pistache</li>
+                    </ul>
+                </div>
+                <div class="option-group">
+                    <h4>Caldas</h4>
+                    <ul>
+                        <li>Leite condensado</li>
+                        <li>Chocolate</li>
+                        <li>Morango</li>
+                        <li>Caramelo</li>
+                    </ul>
+                </div>
+                <div class="option-group">
+                    <h4>Acompanhamentos</h4>
+                    <ul>
+                        <li>Granola</li>
+                        <li>Leite Ninho</li>
+                        <li>Ovomaltine</li>
+                        <li>Castanhas</li>
+                    </ul>
+                </div>
+            </div>
+
+            <a class="btn btn-bordo" href="/AcaiFlow1/monte-seu-acai.php">MONTE AGORA <span>→</span></a>
+        </div>
+    </div>
+</section>
+
+<section class="section about-home reveal" data-reveal aria-labelledby="about-title">
+    <div class="container about-home-inner">
+        <div class="about-home-photo">
+            <img src="/AcaiFlow1/img/institucional/manacapuru-wireframe.jpg" alt="Vista de Manacapuru, no Amazonas" loading="lazy">
+        </div>
+        <div class="about-copy">
+            <span class="eyebrow">SOBRE A AÇAÍ FLOW</span>
+            <h2 id="about-title" class="display-script">Sabores da <span>Amazônia.</span></h2>
+            <p>
+                Criada em Manacapuru-AM, a Açaí Flow é inspirada pela riqueza natural e pela cultura da região.
+                Valorizamos o açaí amazônico em uma experiência moderna, saborosa, rápida e personalizada.
+            </p>
+            <a class="btn btn-coral" href="/AcaiFlow1/sobre.php">CONHEÇA MAIS <span>→</span></a>
+        </div>
+        <div class="about-callout">Sabor da Amazônia,<br><span>perto de você!</span></div>
+    </div>
+</section>
+
+<section class="section contact-strip reveal" data-reveal aria-label="Canais de atendimento">
+    <div class="container contact-bar">
+        <div class="contact-intro">
+            <h2 class="display-script">Fale com a gente</h2>
+            <p>Estamos sempre por aqui, prontos para te atender!</p>
+        </div>
+
+        <a href="/AcaiFlow1/contato.php" class="contact-item">
+            <div class="contact-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M20 11.5a8.5 8.5 0 0 1-12.9 7.3L4 20l1.2-3.1A8.5 8.5 0 1 1 20 11.5Z"/><path d="M8.5 9.5c.4 2.3 2 4 4.4 4.4l1.2-1.2c.2-.2.5-.3.8-.2l1.7.6c.3.1.5.4.5.7v1.2c0 .4-.3.7-.7.7A8.9 8.9 0 0 1 8.3 7.1c0-.4.3-.7.7-.7h1.2c.3 0 .6.2.7.5l.6 1.7c.1.3 0 .6-.2.8L10 10.6Z"/></svg>
+            </div>
+            <div><strong>WhatsApp</strong><span>Fale com a gente</span></div>
+        </a>
+
+        <a href="/AcaiFlow1/contato.php" class="contact-item">
+            <div class="contact-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.5"/><circle cx="17.3" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg>
+            </div>
+            <div><strong>Instagram</strong><span>@acaiflow</span></div>
+        </a>
+
+        <a href="/AcaiFlow1/contato.php" class="contact-item">
+            <div class="contact-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 21s7-6.1 7-12A7 7 0 0 0 5 9c0 5.9 7 12 7 12Z"/><circle cx="12" cy="9" r="2.2"/></svg>
+            </div>
+            <div><strong>Manacapuru-AM</strong><span>Nossa localização</span></div>
+        </a>
+    </div>
+</section>
+
+</main>
+<footer class="site-footer">
+    <div class="footer-wave"></div>
+    <div class="container footer-grid">
+        <div class="footer-brand-block">
+            <img src="/AcaiFlow1/img/logo/logo-real.png" alt="Açaí Flow" class="footer-logo">
+            <p>Açaí expresso com sabor, rapidez, qualidade e liberdade para montar do seu jeito.</p>
+        </div>
+        <div>
+            <h3>Explorar</h3>
+            <a href="/AcaiFlow1/index.php">Início</a>
+            <a href="/AcaiFlow1/cardapio.php">Cardápio</a>
+            <a href="/AcaiFlow1/monte-seu-acai.php">Monte seu açaí</a>
+            <a href="/AcaiFlow1/sobre.php">Sobre</a>
+        </div>
+        <div>
+            <h3>Atendimento</h3>
+            <a href="/AcaiFlow1/contato.php">Fale com a gente</a>
+            <a href="/AcaiFlow1/login.php">Área do cliente</a>
+            <a href="/AcaiFlow1/acompanhamento.php">Acompanhar pedido</a>
+        </div>
+        <div class="footer-flow">Mais que açaí,<strong>é o seu momento!</strong></div>
+    </div>
+    <div class="container footer-bottom">
+        <span>© 2026 Açaí Flow</span>
+        <span>Manacapuru — AM</span>
+    </div>
+</footer>
+<script>window.ACAI_BASE_URL = "/AcaiFlow1"; window.ACAI_CART_SYNC = {"authenticated":false,"csrf":"9ae45f8895f592beeca80914a396f1a18b9b1cd38273c63ad924aa08f4a8327c","endpoint":"/AcaiFlow1/processa/carrinho.php","serverCart":[]};</script>
+<script src="/AcaiFlow1/js/script.js"></script>
+<script src="/AcaiFlow1/js/carrinho.js?v=1790248958"></script>
+<script src="/AcaiFlow1/js/tema.js?v=1790248958"></script>
+</body>
+</html>
