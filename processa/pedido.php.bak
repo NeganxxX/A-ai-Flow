@@ -1,0 +1,59 @@
+<?php
+declare(strict_types=1);
+require_once __DIR__.'/../config/seguranca.php';
+require_once __DIR__.'/../config/conexao.php';
+require_once __DIR__.'/../includes/funcoes.php';
+
+exigirLogin();
+if($_SERVER['REQUEST_METHOD']!=='POST'||!validarCsrf(post('csrf'))){flash('erro','Não foi possível validar o pedido.');redirect('pedido.php');}
+$pdo=getPDO();
+if(!$pdo){flash('erro','Banco de dados indisponível.');redirect('pedido.php');}
+
+$cartJson=(string)post('cart_json');$cart=json_decode($cartJson,true);
+if(!is_array($cart)||count($cart)<1||count($cart)>50){flash('erro','Carrinho inválido ou vazio.');redirect('pedido.php');}
+
+$forma=(string)post('forma_pagamento');
+$formas=['dinheiro','pix','credito','debito'];
+if(!in_array($forma,$formas,true)){flash('erro','Selecione uma forma de pagamento.');redirect('pedido.php');}
+
+$telefone=trim((string)post('telefone'));$cep=trim((string)post('cep'));$rua=trim((string)post('rua'));$numero=trim((string)post('numero'));$complemento=trim((string)post('complemento'));$bairro=trim((string)post('bairro'));$cidade=trim((string)post('cidade'));$observacao=trim((string)post('observacao'));$troco=post('troco_para','');
+if($telefone===''||$cep===''||$rua===''||$numero===''||$bairro===''||$cidade===''){flash('erro','Preencha os dados obrigatórios de entrega.');redirect('pedido.php');}
+if($forma==='dinheiro' && $troco!=='' && (float)$troco<0){flash('erro','Informe um valor de troco válido.');redirect('pedido.php');}
+
+try{
+    $pdo->beginTransaction();
+    $customer=$pdo->prepare('SELECT id,nome FROM usuarios WHERE id=? AND ativo=1 LIMIT 1');$customer->execute([$_SESSION['cliente_id']]);$user=$customer->fetch();
+    if(!$user) throw new RuntimeException('Sua sessão de cliente expirou. Faça login novamente.');
+
+    $total=0.0;$resolved=[];
+    foreach($cart as $item){
+        $qty=max(1,min(20,(int)($item['quantity']??1)));
+        $productId=!empty($item['product_id'])?(int)$item['product_id']:null;
+        if($productId){
+            $st=$pdo->prepare('SELECT id,nome,preco,estoque,ativo FROM produtos WHERE id=? FOR UPDATE');$st->execute([$productId]);$product=$st->fetch();
+            if(!$product||!(int)$product['ativo']) throw new RuntimeException('Um dos produtos não está mais disponível.');
+            if((int)$product['estoque']<$qty) throw new RuntimeException('Estoque insuficiente para: '.$product['nome'].'.');
+            $unit=(float)$product['preco'];$name=$product['nome'];$image=(string)($item['image']??'');
+            $personalization=$item['personalization']??null;
+            $pdo->prepare('UPDATE produtos SET estoque=estoque-? WHERE id=?')->execute([$qty,$productId]);
+        } else {
+            $sizeId=(int)($item['size_id']??0);$st=$pdo->prepare('SELECT id,tipo,nome,preco FROM tamanhos WHERE id=? AND ativo=1');$st->execute([$sizeId]);$size=$st->fetch();
+            if(!$size) throw new RuntimeException('O tamanho selecionado não está disponível.');
+            $optionRows=[];$optionIds=[];
+            if(isset($item['personalization']['opcoes'])&&is_array($item['personalization']['opcoes'])) foreach($item['personalization']['opcoes'] as $op) if(isset($op['id'])) $optionIds[]=(int)$op['id'];
+            $extra=0.0;
+            if($optionIds){$marks=implode(',',array_fill(0,count($optionIds),'?'));$st=$pdo->prepare("SELECT id,tipo,nome,preco_adicional FROM opcoes WHERE ativo=1 AND id IN ($marks)");$st->execute($optionIds);$optionRows=$st->fetchAll();if(count($optionRows)!==count(array_unique($optionIds))) throw new RuntimeException('Um dos complementos selecionados não está disponível.');foreach($optionRows as $op)$extra+=(float)$op['preco_adicional'];}
+            $unit=(float)$size['preco']+$extra;$name='Monte seu Açaí — '.$size['nome'];$image='img/customizador.svg';$personalization=['tamanho'=>$size['nome'],'tamanho_id'=>(int)$size['id'],'tipo'=>$size['tipo'],'opcoes'=>array_map(fn($op)=>['id'=>(int)$op['id'],'tipo'=>$op['tipo'],'nome'=>$op['nome'],'preco'=>(float)$op['preco_adicional']],$optionRows),'observacao'=>(string)($item['personalization']['observacao']??'')];
+        }
+        $subtotal=$unit*$qty;$total+=$subtotal;$resolved[]=['product_id'=>$productId,'name'=>$name,'unit'=>$unit,'qty'=>$qty,'subtotal'=>$subtotal,'personalization'=>$personalization,'image'=>$image];
+    }
+    $insert=$pdo->prepare('INSERT INTO pedidos(usuario_id,nome_cliente,telefone,cep,rua,numero,complemento,bairro,cidade,observacao,forma_pagamento,troco_para,total,status) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
+    $insert->execute([(int)$user['id'],$user['nome'],$telefone,$cep,$rua,$numero,$complemento,$bairro,$cidade,$observacao,$forma,$forma==='dinheiro'&&$troco!==''?(float)$troco:null,$total,'recebido']);
+    $pedidoId=(int)$pdo->lastInsertId();
+    $itemInsert=$pdo->prepare('INSERT INTO itens_pedido(pedido_id,produto_id,nome_produto,preco_unitario,quantidade,subtotal,personalizacao_json) VALUES(?,?,?,?,?,?,?)');
+    foreach($resolved as $row)$itemInsert->execute([$pedidoId,$row['product_id'],$row['name'],$row['unit'],$row['qty'],$row['subtotal'],json_encode($row['personalization'],JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES)]);
+    $pdo->commit();
+    flash('sucesso','Pedido #'.$pedidoId.' recebido. Acompanhe o status na sua área do cliente.');
+    echo '<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta http-equiv="refresh" content="0;url='.e(url('cliente/pedido-detalhes.php?id='.$pedidoId)).'"><title>Pedido confirmado</title></head><body></body></html>';
+    exit;
+}catch(Throwable $e){if($pdo->inTransaction())$pdo->rollBack();flash('erro',$e->getMessage());redirect('pedido.php');}
