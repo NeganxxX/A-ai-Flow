@@ -1,0 +1,219 @@
+<?php
+declare(strict_types=1);
+require_once __DIR__ . '/../config/app.php';
+require_once __DIR__ . '/../config/sessao.php';
+
+function e(mixed $value): string { return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8'); }
+
+function url(string $path = ''): string {
+    $path = ltrim($path, '/');
+    return BASE_URL . '/' . $path;
+}
+
+function asset(string $path): string { return url($path); }
+
+function redirect(string $path): never {
+    $location = preg_match('~^https?://~i', $path) ? $path : url($path);
+    header('Location: ' . $location);
+    exit;
+}
+
+function flash(string $type, string $message): void {
+    $_SESSION['flash'][$type][] = $message;
+}
+
+function consumeFlash(string $type): array {
+    $messages = $_SESSION['flash'][$type] ?? [];
+    unset($_SESSION['flash'][$type]);
+    return $messages;
+}
+
+function csrfToken(): string {
+    if (empty($_SESSION['csrf_token'])) {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    }
+    return $_SESSION['csrf_token'];
+}
+
+function validarCsrf(?string $token): bool {
+    return is_string($token) && hash_equals((string)($_SESSION['csrf_token'] ?? ''), $token);
+}
+
+function renovarCsrfToken(): string {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    return $_SESSION['csrf_token'];
+}
+
+function post(string $key, mixed $default = ''): mixed { return $_POST[$key] ?? $default; }
+
+
+function registrarLogAdmin(?PDO $pdo, int $adminId, string $acao, ?string $entidade = null, ?int $entidadeId = null, ?string $detalhes = null): void {
+    if (!$pdo || $adminId <= 0 || !tableExists($pdo, 'admin_logs')) return;
+    try {
+        $ip = filter_var($_SERVER['REMOTE_ADDR'] ?? null, FILTER_VALIDATE_IP) ?: null;
+        $stmt = $pdo->prepare('INSERT INTO admin_logs(administrador_id,acao,entidade,entidade_id,detalhes,ip) VALUES(?,?,?,?,?,?)');
+        $stmt->execute([$adminId, $acao, $entidade, $entidadeId, $detalhes, $ip]);
+    } catch (Throwable $exception) {
+        // O log não deve impedir uma operação administrativa válida.
+    }
+}
+function formatarMoeda(float $value): string { return 'R$ ' . number_format($value, 2, ',', '.'); }
+function formatarData(string $value): string { $time = strtotime($value); return $time ? date('d/m/Y H:i', $time) : $value; }
+function isClienteLogado(): bool { return !empty($_SESSION['cliente_id']); }
+function isAdminLogado(): bool { return !empty($_SESSION['admin_id']); }
+function nomeCliente(): string { return (string)($_SESSION['cliente_nome'] ?? 'Cliente'); }
+
+function colunaExiste(PDO $pdo, string $table, string $column): bool {
+    if ($table === '' || $column === '' || !preg_match('/^[A-Za-z0-9_]+$/', $table) || !preg_match('/^[A-Za-z0-9_]+$/', $column)) {
+        return false;
+    }
+    try {
+        $statement = $pdo->prepare(
+            'SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS
+             WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = ? AND COLUMN_NAME = ? LIMIT 1'
+        );
+        $statement->execute([$table, $column]);
+        return (bool)$statement->fetchColumn();
+    } catch (Throwable $exception) {
+        error_log('[Açai Flow] Falha ao verificar coluna ' . $table . '.' . $column . ': ' . $exception->getMessage());
+        return false;
+    }
+}
+
+function tableExists(PDO $pdo, string $table): bool {
+    if ($table === '' || !preg_match('/^[A-Za-z0-9_]+$/', $table)) {
+        return false;
+    }
+
+    try {
+        $statement = $pdo->prepare(
+            'SELECT 1
+             FROM INFORMATION_SCHEMA.TABLES
+             WHERE TABLE_SCHEMA = DATABASE()
+               AND TABLE_NAME = ?
+             LIMIT 1'
+        );
+        $statement->execute([$table]);
+        return (bool)$statement->fetchColumn();
+    } catch (Throwable $exception) {
+        error_log('[Açai Flow] Falha ao verificar tabela ' . $table . ': ' . $exception->getMessage());
+        return false;
+    }
+}
+
+function produtoImagem(?string $path): string {
+    if (!$path) return asset('img/placeholder.svg');
+    $cleanPath = ltrim($path, '/');
+    return is_file(dirname(__DIR__) . '/' . $cleanPath) ? asset($cleanPath) : asset('img/placeholder.svg');
+}
+
+
+function imagemTamanhoCatalogo(string $tipo, string $nome): string {
+    $tipo = mb_strtolower(trim($tipo));
+    $nome = mb_strtolower(trim($nome));
+    $maps = [
+        'copo' => [
+            '180ml' => 'img/produtos/acai-180ml.jpg',
+            '200ml' => 'img/produtos/acai-200ml.jpg',
+            '300ml' => 'img/produtos/acai-300ml.jpg',
+            '400ml' => 'img/produtos/acai-400ml.jpg',
+            '500ml' => 'img/produtos/acai-500ml.jpg',
+            '700ml' => 'img/produtos/acai-700ml.jpg',
+        ],
+        'barca' => [
+            'pp' => 'img/produtos/barca-pp.jpg',
+            'p' => 'img/produtos/barca-p.jpg',
+            'm' => 'img/produtos/barca-m.jpg',
+            'g' => 'img/produtos/barca-g.jpg',
+            'gg' => 'img/produtos/barca-gg.jpg',
+            'xg' => 'img/produtos/barca-xg.jpg',
+        ],
+    ];
+    $path = $maps[$tipo][$nome] ?? null;
+    if ($path && is_file(dirname(__DIR__) . '/' . $path)) return asset($path);
+    return asset('img/placeholder.svg');
+}
+
+function imagemProdutoPublica(?string $nome, ?string $fallbackPath = null): string {
+    $key = mb_strtolower(trim((string)$nome));
+    $map = [
+        'açaí 180ml' => 'img/produtos/acai-180ml.jpg',
+        'açaí 200ml' => 'img/produtos/acai-200ml.jpg',
+        'açaí 300ml' => 'img/produtos/acai-300ml.jpg',
+        'açaí 400ml' => 'img/produtos/acai-400ml.jpg',
+        'açaí 500ml' => 'img/produtos/acai-500ml.jpg',
+        'açaí 700ml' => 'img/produtos/acai-700ml.jpg',
+        'barca pp' => 'img/produtos/barca-pp.jpg',
+        'barca p' => 'img/produtos/barca-p.jpg',
+        'barca m' => 'img/produtos/barca-m.jpg',
+        'barca g' => 'img/produtos/barca-g.jpg',
+        'barca gg' => 'img/produtos/barca-gg.jpg',
+        'barca xg' => 'img/produtos/barca-xg.jpg',
+    ];
+    if (isset($map[$key]) && is_file(dirname(__DIR__) . '/' . $map[$key])) return asset($map[$key]);
+    return produtoImagem($fallbackPath);
+}
+
+function processarUploadImagem(array $file, string $subdir = 'produtos'): ?string {
+    if (($file['error'] ?? UPLOAD_ERR_NO_FILE) === UPLOAD_ERR_NO_FILE) return null;
+    if (($file['error'] ?? 0) !== UPLOAD_ERR_OK) throw new RuntimeException('Falha no upload.');
+    if (($file['size'] ?? 0) > 5 * 1024 * 1024) throw new RuntimeException('Imagem maior que 5 MB.');
+    $mime = (new finfo(FILEINFO_MIME_TYPE))->file($file['tmp_name']);
+    $extensions = ['image/jpeg' => 'jpg', 'image/png' => 'png', 'image/webp' => 'webp'];
+    $extension = $extensions[$mime] ?? null;
+    if (!$extension) throw new RuntimeException('Use JPG, PNG ou WEBP.');
+
+    $relativeDir = 'uploads/' . trim($subdir, '/');
+    $absoluteDir = dirname(__DIR__) . '/' . $relativeDir;
+    if (!is_dir($absoluteDir) && !mkdir($absoluteDir, 0775, true) && !is_dir($absoluteDir)) {
+        throw new RuntimeException('Não foi possível criar a pasta de upload.');
+    }
+
+    $filename = bin2hex(random_bytes(10)) . '.' . $extension;
+    $destination = $absoluteDir . '/' . $filename;
+    if (!move_uploaded_file($file['tmp_name'], $destination)) throw new RuntimeException('Falha ao salvar a imagem.');
+    return $relativeDir . '/' . $filename;
+}
+
+function limparUpload(?string $path): void {
+    if (!$path || !str_starts_with(ltrim($path, '/'), 'uploads/')) return;
+    $file = dirname(__DIR__) . '/' . ltrim($path, '/');
+    if (is_file($file)) @unlink($file);
+}
+
+function statusLabel(string $status): string {
+    return match ($status) {
+        'recebido' => 'Recebido',
+        'confirmado' => 'Confirmado',
+        'preparando' => 'Em preparo',
+        'pronto' => 'Pronto',
+        'saiu_entrega' => 'Saiu para entrega',
+        'entregue' => 'Entregue',
+        'cancelado' => 'Cancelado',
+        default => ucfirst($status),
+    };
+}
+
+function statusClasse(string $status): string {
+    return match ($status) {
+        'recebido', 'confirmado' => 'status-amarelo',
+        'preparando' => 'status-coral',
+        'pronto' => 'status-ameixa',
+        'saiu_entrega' => 'status-oliva',
+        'entregue' => 'status-verde',
+        'cancelado' => 'status-vermelho',
+        default => 'status-neutro',
+    };
+}
+
+function obterConfiguracao(?PDO $pdo, string $key, string $default = ''): string {
+    if (!$pdo || !tableExists($pdo, 'configuracoes')) return $default;
+    try {
+        $statement = $pdo->prepare('SELECT valor FROM configuracoes WHERE chave = ? LIMIT 1');
+        $statement->execute([$key]);
+        $value = $statement->fetchColumn();
+        return $value === false ? $default : (string)$value;
+    } catch (Throwable $exception) {
+        return $default;
+    }
+}

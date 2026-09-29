@@ -1,0 +1,1 @@
+<?php foreach(['sucesso','erro','info'] as $flashType): foreach(consumeFlash($flashType) as $flashMessage): ?><div class="flash flash-<?=$flashType?>"><?=e($flashMessage)?></div><?php endforeach; endforeach; ?>
