@@ -1,0 +1,231 @@
+/* =========================================================
+   AÇAÍ FLOW — MODO NOTURNO (alto contraste e leitura limpa)
+   ========================================================= */
+.theme-toggle{
+  width:38px;height:38px;flex:0 0 38px;
+  border:1px solid rgba(255,255,255,.34);
+  border-radius:50%;background:rgba(255,255,255,.08);color:#fff;
+  display:grid;place-items:center;transition:transform .2s ease,background .2s ease,border-color .2s ease,color .2s ease;
+}
+.theme-toggle:hover{transform:translateY(-1px);background:rgba(255,255,255,.16)}
+.theme-icon{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.theme-sun{display:none}
+html.dark-mode .theme-moon{display:none}
+html.dark-mode .theme-sun{display:block}
+html.dark-mode .theme-toggle{background:#291722;border-color:#6b4a5c;color:#f7deb6}
+
+html.dark-mode{
+  color-scheme:dark;
+  --dark-bg:#120c11;
+  --dark-surface:#1b1319;
+  --dark-surface-2:#231820;
+  --dark-surface-3:#2c1e27;
+  --dark-text:#fffafd;
+  --dark-muted:#d3c5cd;
+  --dark-muted-2:#ab9aa5;
+  --dark-border:#4a3743;
+}
+
+html.dark-mode body{
+  background:var(--dark-bg);
+  color:var(--dark-text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+html.dark-mode .section-light,
+html.dark-mode .benefits,
+html.dark-mode .customize-strip,
+html.dark-mode .contact-strip,
+html.dark-mode .builder,
+html.dark-mode .catalog-section,
+html.dark-mode .page-shell,
+html.dark-mode .section{
+  background:var(--dark-bg);
+  color:var(--dark-text);
+}
+
+html.dark-mode .site-header{background:rgba(67,8,31,.98)}
+html.dark-mode .main-nav{background:var(--vinho-escuro)}
+
+html.dark-mode :where(h1,h2,h3,h4,h5,h6,strong,label,.step-title h3,.catalog-product-type,.catalog-product-content h3,.product-card h3){
+  color:var(--dark-text);
+}
+html.dark-mode :where(p,.text-muted,.form-help,.catalog-heading-text,.catalog-product-content p,.benefit p,.option-limit,.option-card label small,.contact-item span,.story-copy p){
+  color:var(--dark-muted);
+}
+html.dark-mode .script{color:#f0a39a}
+
+html.dark-mode .filter-btn,
+html.dark-mode .product-card,
+html.dark-mode .catalog-product-card,
+html.dark-mode .form-wrap,
+html.dark-mode .empty-state,
+html.dark-mode .builder-main,
+html.dark-mode .builder-summary,
+html.dark-mode .checkout-panel,
+html.dark-mode .tracking-card,
+html.dark-mode .contact-panel,
+html.dark-mode .value-card,
+html.dark-mode .mini-stat,
+html.dark-mode .table-wrap,
+html.dark-mode .faq-item,
+html.dark-mode .option-group{
+  background:var(--dark-surface);
+  color:var(--dark-text);
+  border-color:var(--dark-border);
+  box-shadow:0 12px 30px rgba(0,0,0,.24);
+}
+
+html.dark-mode .filter-btn{color:var(--dark-text)}
+html.dark-mode .filter-btn:hover,
+html.dark-mode .filter-btn.active{background:var(--bordo);border-color:var(--coral);color:#fff}
+
+html.dark-mode .catalog-product-media,
+html.dark-mode .product-card .product-thumb,
+html.dark-mode .product-detail-image,
+html.dark-mode .summary-thumb,
+html.dark-mode .order-item-thumb,
+html.dark-mode .customize-art,
+html.dark-mode .story-image{background:var(--dark-surface-2)!important;border-color:var(--dark-border)}
+
+html.dark-mode .form-control,
+html.dark-mode .quantity,
+html.dark-mode .quantity button,
+html.dark-mode .quantity input,
+html.dark-mode .pay-option label{
+  background:#140e13;
+  color:var(--dark-text);
+  border-color:var(--dark-border);
+}
+html.dark-mode .form-control::placeholder{color:#9e8c98}
+html.dark-mode .form-control:focus{border-color:var(--coral);box-shadow:0 0 0 3px rgba(225,120,110,.16)}
+html.dark-mode .form-group label{color:#f5b7af}
+
+html.dark-mode .option-card label{
+  background:var(--dark-surface);
+  color:var(--dark-text);
+  border-color:var(--dark-border);
+}
+html.dark-mode .option-card label:hover{border-color:#7b5365}
+html.dark-mode .option-card input:checked + label{
+  background:#3a222e;
+  color:#fff;
+  border-color:var(--coral);
+  box-shadow:0 0 0 3px rgba(225,120,110,.14);
+}
+html.dark-mode .option-card.is-disabled label{
+  background:#171016;
+  color:#746470;
+  border-color:#30222b;
+  box-shadow:none;
+}
+html.dark-mode .builder-rules{background:#211720;border-color:#5a4050;color:#f6eaf0}
+html.dark-mode .builder-notice{background:#211720;border-color:#6a4859;color:#f4e6ed}
+
+html.dark-mode .data-table{background:var(--dark-surface);color:var(--dark-text)}
+html.dark-mode .data-table th{background:var(--dark-surface-3);color:#f8c6bf}
+html.dark-mode .data-table th,html.dark-mode .data-table td{border-color:var(--dark-border)}
+html.dark-mode .pix-box{background:var(--dark-surface-2);border-color:#5b4250}
+html.dark-mode .notice{background:var(--dark-surface-2);color:var(--dark-muted);border-color:#6b4a59}
+html.dark-mode .site-flashes .flash{background:var(--dark-surface-2);color:var(--dark-text);border-color:#6f4b5e}
+
+/* Elementos escuros continuam intencionalmente bordô, mantendo a identidade da marca. */
+html.dark-mode .section-bordo,
+html.dark-mode .menu-preview,
+html.dark-mode .about-home,
+html.dark-mode .site-footer,
+html.dark-mode .page-hero,
+html.dark-mode .hero{color:#fff}
+
+/* Admin */
+html.dark-mode .admin-body{background:#0f0a0e;color:var(--dark-text)}
+html.dark-mode .admin-topbar{background:#1a1218;border-color:var(--dark-border)}
+html.dark-mode .admin-search input{background:#120d12;color:var(--dark-text);border-color:var(--dark-border)}
+html.dark-mode .admin-card,html.dark-mode .kpi,html.dark-mode .admin-login-card{background:var(--dark-surface);color:var(--dark-text);border-color:var(--dark-border)}
+html.dark-mode .admin-card h2,html.dark-mode .admin-heading h1{color:var(--dark-text)}
+html.dark-mode .admin-heading p,html.dark-mode .kpi small{color:var(--dark-muted)}
+html.dark-mode .mini-btn{background:var(--dark-surface-2);color:var(--dark-text);border-color:var(--dark-border)}
+html.dark-mode .admin-search input::placeholder{color:#91808b}
+html.dark-mode .theme-toggle-admin{background:var(--dark-surface-2);border-color:#69495a;color:#f7deb6}
+html.dark-mode .chart-placeholder{background:#181017!important}
+html.dark-mode .admin-menu-toggle{color:var(--dark-text)}
+
+@media (max-width:700px){
+  .theme-toggle{width:34px;height:34px;flex-basis:34px}
+  .theme-icon{width:16px;height:16px}
+}
+
+/* Cobertura adicional — componentes que usam fundo claro fixo */
+html.dark-mode .tag{background:#38242e;color:#f5c1ba}
+html.dark-mode .tag-coral{background:#40242a;color:#ffb0a7}
+html.dark-mode .tag-oliva{background:#313326;color:#d8d9a8}
+html.dark-mode .radio-pill label{background:var(--dark-surface);color:var(--dark-text);border-color:var(--dark-border)}
+html.dark-mode .radio-pill input:checked + label{background:#3a222e;color:#fff;border-color:var(--coral)}
+html.dark-mode .alert-info{background:#2a2030;color:#e4cde2}
+html.dark-mode .alert-warning{background:#332919;color:#f0d18f}
+html.dark-mode .alert-danger{background:#341d22;color:#ffb0b8}
+html.dark-mode .pagination a,html.dark-mode .pagination span{background:var(--dark-surface);color:var(--dark-text);border-color:var(--dark-border)}
+html.dark-mode .client-card{background:var(--dark-surface);color:var(--dark-text);border-color:var(--dark-border)}
+html.dark-mode .client-card p{color:var(--dark-muted)}
+html.dark-mode .client-card a{color:#f5b7af!important}
+html.dark-mode .contact-info-card{background:var(--dark-surface-2);color:var(--dark-text)}
+html.dark-mode .admin-login-wrap{background:#100b0f}
+html.dark-mode .admin-btn.secondary{background:#34252d;color:#f7d4cf;border:1px solid var(--dark-border)}
+html.dark-mode .mini-btn{background:var(--dark-surface-2);color:#f5c1ba}
+html.dark-mode .donut::after{background:var(--dark-surface);color:#f7c1ba}
+html.dark-mode .chart-placeholder{border-color:var(--dark-border)}
+html.dark-mode .price-old{color:#a995a1}
+html.dark-mode .breadcrumb{color:var(--dark-muted)}
+html.dark-mode .breadcrumb a{color:#f2aaa1}
+html.dark-mode .action-row .btn-outline{color:#f3d2ce!important;border-color:#8a6272!important}
+
+
+/* =========================================================
+   COBERTURA FINAL — AUTH, ÍCONES E COMPONENTES CLAROS
+   ========================================================= */
+html.dark-mode .auth-layout,
+html.dark-mode .auth-form-side{background:var(--dark-bg);color:var(--dark-text)}
+html.dark-mode .auth-form-card h2{color:var(--dark-text)}
+html.dark-mode .auth-form-card>p{color:var(--dark-muted)}
+html.dark-mode .auth-links a{color:#f5b7af}
+html.dark-mode .header-icon svg,
+html.dark-mode .cart-link svg,
+html.dark-mode .theme-icon{stroke:currentColor}
+html.dark-mode .client-nav-icon,
+html.dark-mode .client-stat-icon,
+html.dark-mode .client-shortcut-icon,
+html.dark-mode .client-form-avatar{color:#ffd0c8}
+html.dark-mode .catalog-offers-section{background:linear-gradient(180deg,rgba(80,42,59,.22),transparent)}
+html.dark-mode .catalog-offer-card{background:var(--dark-surface);border-color:var(--dark-border);box-shadow:0 12px 30px rgba(0,0,0,.24)}
+html.dark-mode .catalog-offer-card{border-top-color:var(--coral)}
+html.dark-mode .catalog-offer-card:hover{border-top-color:var(--oliva)}
+html.dark-mode .catalog-offer-media{background:var(--dark-surface-2)}
+html.dark-mode .catalog-offer-content h3{color:var(--dark-text)}
+html.dark-mode .catalog-offer-content p{color:var(--dark-muted)}
+html.dark-mode .catalog-offer-bottom strong{color:#ffd0c8}
+html.dark-mode .catalog-product-media{color:var(--dark-text)}
+html.dark-mode .site-footer a:hover{color:#ffd0c8}
+html.dark-mode input[type="file"]{background:#140e13;color:var(--dark-text);border-color:var(--dark-border)}
+html.dark-mode input[type="datetime-local"]::-webkit-calendar-picker-indicator{filter:invert(.85) sepia(.2) saturate(.6)}
+
+
+/* Ícones inline: neutraliza o preenchimento preto padrão do SVG no tema escuro. */
+html.dark-mode .benefit-icon svg,
+html.dark-mode .header-icon svg,
+html.dark-mode .cart-link svg,
+html.dark-mode .hero-location svg,
+html.dark-mode .contact-icon svg{
+  fill:none!important;
+  stroke:currentColor!important;
+  color:#ffd0c8;
+}
+html.dark-mode .benefit-icon{color:#ffd0c8;border-color:#8f566b}
+html.dark-mode .benefit:not(:last-child)::after{background:var(--dark-border)}
+html.dark-mode .builder-special-card{background:var(--dark-surface);border-color:var(--dark-border)}
+html.dark-mode .builder-special-thumb{background:var(--dark-surface-2)!important}
+html.dark-mode .builder-special-card h4{color:var(--dark-text)}
+html.dark-mode .builder-special-card p{color:var(--dark-muted)}
+html.dark-mode .builder-special-type{color:#f5b7af}
+html.dark-mode .contact-info-card strong{color:#fffafd}
+html.dark-mode .contact-info-card span{color:var(--dark-muted)}

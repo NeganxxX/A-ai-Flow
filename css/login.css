@@ -1,0 +1,72 @@
+/*
+ * Área de autenticação — Açaí Flow
+ * A lateral usa a arte do modelo enviada para o projeto, com fundo
+ * transparente sobre a identidade visual do site.
+ */
+.auth-layout{
+  background:var(--creme);
+}
+.auth-art{
+  --auth-model-image:url("../img/auth/modelo-login.png");
+  background-color:var(--bordo);
+  background-image:
+    linear-gradient(90deg,rgba(67,8,31,.94) 0%,rgba(67,8,31,.73) 28%,rgba(67,8,31,.25) 63%,rgba(67,8,31,.08) 100%),
+    var(--auth-model-image);
+  background-size:cover, auto 100%;
+  background-position:center, 112% center;
+  background-repeat:no-repeat;
+  isolation:isolate;
+}
+.auth-art::before{
+  background:
+    radial-gradient(circle at 78% 28%,rgba(142,59,122,.34),transparent 34%),
+    linear-gradient(180deg,rgba(42,10,28,.05),rgba(42,10,28,.28));
+  z-index:-1;
+}
+.auth-art-content{
+  text-shadow:0 2px 12px rgba(40,0,16,.28);
+  max-width:340px;
+  margin-right:auto;
+}
+.auth-art-content p{text-shadow:0 1px 8px rgba(40,0,16,.22)}
+.auth-form-card .form-group{margin-bottom:13px}
+
+html.dark-mode .auth-layout,
+html.dark-mode .auth-form-side{
+  background:var(--dark-bg);
+  color:var(--dark-text);
+}
+html.dark-mode .auth-form-card h2{color:var(--dark-text)}
+html.dark-mode .auth-form-card>p{color:var(--dark-muted)}
+html.dark-mode .auth-links a{color:#f5b7af}
+html.dark-mode .auth-art{
+  background-color:#2a101c;
+  background-image:
+    linear-gradient(90deg,rgba(18,12,17,.94) 0%,rgba(18,12,17,.72) 28%,rgba(18,12,17,.28) 63%,rgba(18,12,17,.10) 100%),
+    var(--auth-model-image);
+}
+html.dark-mode .auth-art::before{
+  background:linear-gradient(180deg,rgba(18,12,17,.08),rgba(18,12,17,.32));
+}
+
+@media (max-width:900px){
+  .auth-art{
+    background-size:cover, auto 100%;
+    background-position:center, 118% center;
+  }
+  .auth-art-content{max-width:330px}
+}
+
+@media (max-width:620px){
+  .auth-art{
+    min-height:410px;
+    background-size:cover, auto 115%;
+    background-position:center, 100% center;
+  }
+  .auth-art-content{
+    max-width:290px;
+    align-self:flex-start;
+    padding-top:8px;
+  }
+  .auth-art-content h1{font-size:3rem}
+}

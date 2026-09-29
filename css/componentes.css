@@ -1,0 +1,12 @@
+.page-shell{padding:54px 0}.page-shell .section-head{margin-bottom:24px}
+.tag{display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;font-size:.62rem;font-weight:800;background:#f2e8e9;color:var(--bordo)}
+.tag-coral{background:#ffe5df;color:#a64638}.tag-oliva{background:#e8ebdc;color:#5e6133}
+.icon-circle{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--bege);color:var(--bordo);font-weight:800}
+.action-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.price-old{text-decoration:line-through;color:#a88f95;font-size:.72rem;margin-right:6px}
+.product-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.breadcrumb{display:flex;align-items:center;gap:8px;font-size:.68rem;color:var(--muted);margin-bottom:18px}.breadcrumb a{color:var(--bordo);font-weight:700}
+.checkbox-list{display:grid;gap:8px}.checkbox-row{display:flex;align-items:center;gap:8px;font-size:.71rem}.checkbox-row input{accent-color:var(--bordo)}
+.radio-pills{display:flex;gap:8px;flex-wrap:wrap}.radio-pill{position:relative}.radio-pill input{position:absolute;opacity:0}.radio-pill label{border:1px solid var(--borda);padding:10px 14px;border-radius:12px;background:#fff;display:block;cursor:pointer;font-size:.7rem;font-weight:700}.radio-pill input:checked+label{background:#fff0ea;border-color:var(--coral)}
+.alert{padding:13px;border-radius:12px;font-size:.72rem;margin-bottom:14px}.alert-info{background:#f2ecf3;color:#693659}.alert-warning{background:#fff4dc;color:#815814}.alert-danger{background:#fbe5e5;color:#923c42}
+.pagination{display:flex;gap:7px;justify-content:center;margin-top:24px}.pagination a,.pagination span{width:36px;height:36px;display:grid;place-items:center;border:1px solid var(--borda);border-radius:10px;font-size:.68rem}.pagination .active{background:var(--bordo);color:#fff;border-color:var(--bordo)}
